@@ -1,6 +1,6 @@
 /*
  * Ett seriöst försök nu då att få till det nån gång.
- *
+ * Branch pir
  */
 
 #include <wiringPi.h>
@@ -13,16 +13,20 @@
 #define RED_BUTTON 16
 #define GREEN_BUTTON 20
 #define BLUE_BUTTON 21
+#define PIR 6
 #define RED_LED 13
 #define GREEN_LED 19
 #define BLUE_LED 26
+#define YELLOW_LED 18 
 
 void cleanup(int signo) {
 	digitalWrite(RED_LED, LOW);
 	digitalWrite(GREEN_LED, LOW);
 	digitalWrite(BLUE_LED, LOW);
-	pinMode(RED_LED, INPUT);
-	pinMode(GREEN_LED, INPUT);
+	digitalWrite(YELLOW_LED, LOW);
+	pinMode(BLUE_LED, INPUT);
+	pinMode(BLUE_LED, INPUT);
+	pinMode(BLUE_LED, INPUT);
 	pinMode(BLUE_LED, INPUT);
 	pullUpDnControl(RED_BUTTON, PUD_DOWN);
 	pullUpDnControl(GREEN_BUTTON, PUD_DOWN);
