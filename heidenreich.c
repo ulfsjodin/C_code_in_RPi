@@ -44,6 +44,27 @@ void goPir() {
 	digitalWrite(YELLOW_LED, LOW);
 }
 
+static pid_t pid = 0;
+
+void takePic(char* filename) {
+	if((pid = fork()) == 0) {
+		execl("/usr/bin/raspistill",
+			"/usr/bin/raspistill",
+			"-w 1280",
+			"-h 960",
+			"-q 100",
+			"-o",
+			filename,
+			NULL);
+	}
+
+}
+
+void shoot() {
+	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/pic1.jpg");
+	printf("Boom!");
+}
+
 int main(void) {
 	signal(SIGINT , cleanup); 
 	signal(SIGTERM , cleanup); 
@@ -56,7 +77,8 @@ int main(void) {
 	pinMode(YELLOW_LED, OUTPUT);
 	digitalWrite(YELLOW_LED, LOW);
 
-	wiringPiISR(PIR, INT_EDGE_FALLING, goPir);
+	//wiringPiISR(PIR, INT_EDGE_FALLING, goPir);
+	wiringPiISR(PIR, INT_EDGE_FALLING, shoot);
 
 	pause();
 
