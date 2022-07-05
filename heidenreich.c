@@ -47,12 +47,12 @@ void goPir() {
 static pid_t pid = 0;
 
 void takePic(char* filename) {
+
 	if((pid = fork()) == 0) {
 		execl("/usr/bin/raspistill",
 			"/usr/bin/raspistill",
-			"-w 1280",
-			"-h 960",
-			"-q 100",
+			"-n",
+			"-vf",
 			"-o",
 			filename,
 			NULL);
