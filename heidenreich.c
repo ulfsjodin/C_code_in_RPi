@@ -52,7 +52,8 @@ void takePic(char* filename) {
 		execl("/usr/bin/raspistill",
 			"/usr/bin/raspistill",
 			"-n",
-			"-vf",
+			"-w", "640",
+			"-h", "480",
 			"-o",
 			filename,
 			NULL);
@@ -61,8 +62,7 @@ void takePic(char* filename) {
 }
 
 void shoot() {
-	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/pic1.jpg");
-	printf("Boom!");
+	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/fib1.jpg");
 }
 
 int main(void) {
