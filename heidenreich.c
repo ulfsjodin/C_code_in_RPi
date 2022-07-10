@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <time.h>
 
 // gpio pins BCM numbering.
 #define PIR 6
@@ -44,6 +45,20 @@ void goPir() {
 	digitalWrite(YELLOW_LED, LOW);
 }
 
+
+void filnamn() {
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+	char contents[115];
+	sprintf(contents, "%d-%02d-%02d_%02d:%02d:%02d.jpg\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
+	/*This print statement gives me a string that looks correct as a pathway.
+	  But I don´t know how to pass this on to the function "shoot" where the filename is set */ 
+
+	//printf("/home/ulf/c_pins/wiringpi/heiden_c/pictures/%s\n", contents);
+}
+
+
 static pid_t pid = 0;
 
 void takePic(char* filename) {
@@ -62,7 +77,9 @@ void takePic(char* filename) {
 }
 
 void shoot() {
-	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/fib1.jpg");
+	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/picture4.jpg");
+	
+	//takePic(???);
 }
 
 int main(void) {
@@ -79,6 +96,7 @@ int main(void) {
 
 	//wiringPiISR(PIR, INT_EDGE_FALLING, goPir);
 	wiringPiISR(PIR, INT_EDGE_FALLING, shoot);
+	//wiringPiISR(PIR, INT_EDGE_FALLING, filnamn);
 
 	pause();
 
