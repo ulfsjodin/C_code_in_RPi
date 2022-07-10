@@ -61,7 +61,7 @@ void takePic(char* filename) {
 }
 
 void shoot() {
-	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/pic1.jpg");
+	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/pic4.jpg");
 	printf("Boom!");
 }
 
