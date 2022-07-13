@@ -46,16 +46,14 @@ void goPir() {
 }
 
 
-void filnamn() {
+const char* filnamn() {
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 	char contents[115];
 	sprintf(contents, "%d-%02d-%02d_%02d:%02d:%02d.jpg\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	
+	return(contents);
 
-	/*This print statement gives me a string that looks correct as a pathway.
-	  But I don´t know how to pass this on to the function "shoot" where the filename is set */ 
-
-	//printf("/home/ulf/c_pins/wiringpi/heiden_c/pictures/%s\n", contents);
 }
 
 
@@ -77,9 +75,10 @@ void takePic(char* filename) {
 }
 
 void shoot() {
-	takePic("/home/ulf/c_pins/wiringpi/heiden_c/pictures/picture4.jpg");
+	char filename[115];
+	filename = filnamn();
+	takePic(contents);
 	
-	//takePic(???);
 }
 
 int main(void) {
@@ -96,7 +95,6 @@ int main(void) {
 
 	//wiringPiISR(PIR, INT_EDGE_FALLING, goPir);
 	wiringPiISR(PIR, INT_EDGE_FALLING, shoot);
-	//wiringPiISR(PIR, INT_EDGE_FALLING, filnamn);
 
 	pause();
 
