@@ -9,8 +9,8 @@ char *tidstampel(void) {
            time_t t = time(NULL);
            struct tm tm = *localtime(&t);
            static char contents[115];
-           sprintf(contents, "/home/ulf/c_pins/wiringPi/heiden/pictures/%d-%02d_%02d_%02d_%02d_%02d.jpg\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour,tm.tm_min, tm.tm_sec);
- 
+           sprintf(contents, "/home/ulf/date_%d_%02d_%02d_time_%02d_%02d_%02d.jpg", tm.tm_year + 1900, tm.tm_mon +1, tm.tm_mday, tm.tm_hour,tm.tm_min, tm.tm_sec);
+
            return(contents);
   }
  
@@ -23,6 +23,8 @@ void takePic(char *filename) {
          if((pid = fork()) == 0) {
                  execl("/usr/bin/raspistill",
                          "/usr/bin/raspistill",
+		 	 "-hf",
+			 "-vf",
                          "-n",
                          "-w", "640",
                          "-h", "480",
