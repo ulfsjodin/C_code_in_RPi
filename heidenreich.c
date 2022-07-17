@@ -29,7 +29,6 @@ unsigned short int isPressed(unsigned short int button) {
 	static struct timespec lastCall;
 	struct timespec thisCall;
 	float timeDiff;
-	
 	clock_gettime(CLOCK_REALTIME, &thisCall);
 	timeDiff = (thisCall.tv_sec + thisCall.tv_nsec/1E9 - lastCall.tv_sec - lastCall.tv_nsec/1E9)*5;
 	lastCall = thisCall;
@@ -49,21 +48,22 @@ void goPir() {
 const char* filnamn() {
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
-	char contents[115];
-	sprintf(contents, "%d-%02d-%02d_%02d:%02d:%02d.jpg\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	static char contentan[115];
+	sprintf(contentan, "/home/ulf/bild_%d-%02d-%02d_%02d_%02d_%02d.jpg", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 	
-	return(contents);
-
+	return(contentan);
 }
 
 
 static pid_t pid = 0;
 
-void takePic(char* filename) {
+void takePic(const char **filename) {
 
 	if((pid = fork()) == 0) {
 		execl("/usr/bin/raspistill",
 			"/usr/bin/raspistill",
+			"-hf",
+			"-vf",
 			"-n",
 			"-w", "640",
 			"-h", "480",
@@ -75,10 +75,10 @@ void takePic(char* filename) {
 }
 
 void shoot() {
-	char filename[115];
-	filename = filnamn();
-	takePic(contents);
-	
+	const char *contentan;
+	contentan = filnamn();
+	printf("<<>>%s\n", contentan);
+	//takePic(&contentan);	
 }
 
 int main(void) {
