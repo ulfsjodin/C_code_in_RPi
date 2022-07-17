@@ -1,5 +1,4 @@
 /*
- * Ett seriöst försök nu då att få till det nån gång.
  * Branch pir
  */
 
@@ -93,7 +92,6 @@ int main(void) {
 	pinMode(YELLOW_LED, OUTPUT);
 	digitalWrite(YELLOW_LED, LOW);
 
-	//wiringPiISR(PIR, INT_EDGE_FALLING, goPir);
 	wiringPiISR(PIR, INT_EDGE_FALLING, shoot);
 
 	pause();
